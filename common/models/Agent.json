@@ -1,0 +1,107 @@
+{
+  "name": "Agent",
+  "description": "Agent systemu. Moze byt oznaceny ako neplatny v pripade zleho merania cez atribut invalid_value.",
+  "replaceOnPUT": true,
+  "options": {
+    "mysql": {
+      "schema": "data_collector",
+      "table": "Agent"
+    }
+  },
+  "properties": {
+    "agentId": {
+      "type": "number",
+      "id": true,
+      "generated": true,
+      "description": "Identifikator agenta.",
+      "mysql": {
+        "columnName": "agentId",
+        "dataType": "int",
+        "nullable": "N"
+      },
+      "updateOnly": false
+    },
+    "arrival": {
+      "type": "date",
+      "required": true,
+      "description": "Cas prichodu agenta do systemu ako UNIX timestamp.",
+      "mysql": {
+        "columnName": "arrival",
+        "dataType": "timestamp",
+        "nullable": "N"
+      }
+    },
+    "delayTime": {
+      "type": "number",
+      "required": true,
+      "description": "Cas obsluhy agenta v milisekundach.",
+      "mysql": {
+        "columnName": "delayTime",
+        "dataType": "int",
+        "nullable": "N"
+      }
+    },
+    "waitingTime": {
+      "type": "number",
+      "required": true,
+      "description": "Cas cakania agenta v rade v milisekundach.",
+      "mysql": {
+        "columnName": "waitingTime",
+        "dataType": "int",
+        "nullable": "N"
+      }
+    },
+    "invalidValue": {
+      "type": "boolean",
+      "required": false,
+      "description": "Priznak ci je meranie platne alebo nie.",
+      "mysql": {
+        "columnName": "invalidValue",
+        "dataType": "char",
+        "dataLength": 1,
+        "nullable": "Y"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "measurements": {
+      "type": "hasOne",
+      "model": "Measurement",
+      "foreignKey": "measurementId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}

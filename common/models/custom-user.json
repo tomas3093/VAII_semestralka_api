@@ -1,0 +1,44 @@
+{
+  "name": "CustomUser",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "email": {
+      "type": "string",
+      "required": true,
+      "index": {
+        "unique": true
+      },
+      "length": 80,
+      "mysql": {
+        "columnName": "email",
+        "dataType": "varchar",
+        "dataLength": 80,
+        "nullable": "N"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "measurements": {
+      "type": "hasMany",
+      "model": "Measurement",
+      "foreignKey": "measurementId",
+      "options": {
+        "nestRemoting": true
+      }
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}

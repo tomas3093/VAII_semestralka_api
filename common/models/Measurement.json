@@ -1,0 +1,129 @@
+{
+  "name": "Measurement",
+  "description": "Reprezentuje konkretne meranie udajov systemu.",
+  "replaceOnPUT": true,
+  "options": {
+    "mysql": {
+      "schema": "data_collector",
+      "table": "Measurement"
+    }
+  },
+  "properties": {
+    "measurementId": {
+      "type": "number",
+      "id": true,
+      "generated": true,
+      "description": "Identifikator merania.",
+      "mysql": {
+        "columnName": "measurementId",
+        "dataType": "int",
+        "nullable": "N"
+      },
+      "updateOnly": false
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "description": "Nazov merania.",
+      "length": 30,
+      "mysql": {
+        "columnName": "name",
+        "dataType": "varchar",
+        "dataLength": 30,
+        "nullable": "N"
+      }
+    },
+    "description": {
+      "type": "string",
+      "required": false,
+      "description": "Popis merania.",
+      "length": 255,
+      "mysql": {
+        "columnName": "description",
+        "dataType": "varchar",
+        "dataLength": 255,
+        "nullable": "N"
+      }
+    },
+    "startTime": {
+      "type": "date",
+      "required": true,
+      "description": "Zaciatok merania ako UNIX timestamp.",
+      "mysql": {
+        "columnName": "startTime",
+        "dataType": "timestamp",
+        "nullable": "N"
+      }
+    },
+    "stopTime": {
+      "type": "date",
+      "required": false,
+      "description": "Ukoncenie merania ako UNIX timestamp.",
+      "mysql": {
+        "columnName": "stopTime",
+        "dataType": "timestamp",
+        "nullable": "Y"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "agentType": {
+      "type": "belongsTo",
+      "model": "AgentType",
+      "foreignKey": "agentTypeId"
+    },
+    "agents": {
+      "type": "hasMany",
+      "model": "Agent",
+      "foreignKey": "measurementId",
+      "options": {
+        "nestRemoting": true
+      }
+    },
+    "owner": {
+      "type": "belongsTo",
+      "model": "CustomUser",
+      "foreignKey": "userId"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}

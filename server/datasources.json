@@ -1,0 +1,17 @@
+{
+  "mysql1": {
+    "host": "localhost",
+    "port": 3306,
+    "database": "data_collector",
+    "password": "just-demo",
+    "name": "mysql1",
+    "user": "demo-app",
+    "connector": "mysql"
+  },
+  "local-db": {
+    "name": "local-db",
+    "localStorage": "local-db",
+    "file": "",
+    "connector": "memory"
+  }
+}

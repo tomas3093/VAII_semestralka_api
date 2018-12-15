@@ -1,0 +1,58 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "local-db",
+    "public": false,
+    "options": {
+      "emailVerificationRequired": false
+    }
+  },
+  "AccessToken": {
+    "dataSource": "mysql1",
+    "public": true
+  },
+  "ACL": {
+    "dataSource": "mysql1",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "mysql1",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "mysql1",
+    "public": false
+  },
+  "AgentType": {
+    "dataSource": "mysql1",
+    "public": true
+  },
+  "Agent": {
+    "dataSource": "mysql1",
+    "public": true
+  },
+  "Measurement": {
+    "dataSource": "mysql1",
+    "public": true
+  },
+  "CustomUser": {
+    "dataSource": "mysql1",
+    "public": true
+  }
+}
